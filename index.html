@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carmeldo Fashion | Luxury Boutique</title>
+<style>
+:root {
+  --black: #171714;
+  --cream: #f6f2e9;
+  --gold: #b99a63;
+  --white: #fff;
+  --muted: #77756e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--black);
+  font-family: Arial, sans-serif;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+header {
+  background: var(--black);
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+nav { display: flex; gap: 22px; align-items: center; }
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+}
+.cart-button {
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: white;
+  padding: 10px 15px;
+}
+.hero {
+  min-height: 510px;
+  display: flex;
+  align-items: center;
+  padding: 70px 8%;
+  color: white;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.15)),
+    url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600")
+    center/cover;
+}
+.hero-content { max-width: 560px; }
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(42px,7vw,75px);
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+.hero p {
+  line-height: 1.8;
+  color: #e5e0d8;
+  margin-bottom: 30px;
+}
+.gold-button {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  padding: 15px 27px;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.section { padding: 65px 6%; }
+.section-title {
+  font-family: Georgia, serif;
+  font-size: 36px;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.section-subtitle {
+  color: var(--muted);
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 35px;
+}
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.category {
+  background: transparent;
+  border: 1px solid #c8bda9;
+  padding: 11px 20px;
+}
+.category.active, .category:hover {
+  background: var(--black);
+  color: white;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 22px;
+}
+.product { background: white; padding-bottom: 18px; }
+.product img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+.product-info { padding: 15px; }
+.product-info small { color: var(--muted); }
+.product-info h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin: 9px 0;
+}
+.price { color: #927443; font-weight: bold; }
+.add-button {
+  width: 100%;
+  margin-top: 14px;
+  background: var(--black);
+  color: white;
+  border: none;
+  padding: 12px;
+}
+.add-button:hover { background: var(--gold); color: black; }
+.promo {
+  background: var(--black);
+  color: white;
+  padding: 65px 20px;
+  text-align: center;
+}
+.promo h2 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+.promo p { color: #ccc; margin-bottom: 25px; }
+#cart {
+  background: #ebe4d8;
+}
+.cart-row {
+  background: white;
+  margin: 10px auto;
+  max-width: 700px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cart-row input { width: 55px; padding: 6px; }
+.remove {
+  background: transparent;
+  border: none;
+  color: #a33;
+}
+.cart-total {
+  max-width: 700px;
+  margin: 20px auto;
+  text-align: right;
+  font-size: 21px;
+  font-weight: bold;
+}
+.checkout-button {
+  display: block;
+  margin: 20px auto;
+  max-width: 700px;
+  width: 100%;
+  padding: 16px;
+  background: var(--black);
+  color: white;
+  border: none;
+}
+.empty { text-align: center; color: var(--muted); padding: 25px; }
+footer {
+  background: var(--black);
+  color: white;
+  padding: 40px 6%;
+  text-align: center;
+}
+footer h2 { color: var(--gold); font-family: Georgia,serif; }
+footer p { color: #aaa; margin-top: 12px; font-size: 13px; }
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0,0,0,.7);
+  overflow-y: auto;
+  padding: 20px;
+}
+.modal-content {
+  background: var(--cream);
+  max-width: 520px;
+  margin: 30px auto;
+  padding: 28px;
+}
+.modal-content h2 {
+  font-family: Georgia,serif;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+.modal-content input, .modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0 14px;
+  border: 1px solid #ccc;
+  background: white;
+}
+.modal-content label { font-size: 13px; }
+.close {
+  float: right;
+  border: none;
+  background: none;
+  font-size: 25px;
+}
+.notice {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 12px 0;
+}
+@media(max-width:900px) {
+  .products { grid-template-columns: repeat(2,1fr); }
+  nav { gap: 12px; }
+}
+@media(max-width:550px) {
+  header { padding: 15px; flex-wrap: wrap; gap: 14px; }
+  nav { width: 100%; justify-content: space-between; }
+  nav a { font-size: 12px; }
+  .hero { min-height: 430px; }
+  .products { gap: 12px; }
+  .product img { height: 190px; }
+  .product-info { padding: 10px; }
+  .section { padding: 45px 15px; }
+  .section-title { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CARMELDO.</div>
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#shop">SHOP</a>
+    <a href="#about">ABOUT</a>
+    <button class="cart-button" onclick="goCart()">
+      BAG (<span id="cartCount">0</span>)
+    </button>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">THE PREMIUM COLLECTION</div>
+    <h1>Elegance is an attitude.</h1>
+    <p>
+      Discover premium fashion for men and women.
+      Quality, confidence and timeless style.
+    </p>
+    <a href="#shop" class="gold-button">EXPLORE COLLECTION</a>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <h2 class="section-title">The Collection</h2>
+  <p class="section-subtitle">
+    Carefully selected styles. Made to make a statement.
+  </p>
+
+  <div class="categories">
+    <button class="category active" onclick="filterProducts('All',this)">All</button>
+    <button class="category" onclick="filterProducts('Men',this)">Men</button>
+    <button class="category" onclick="filterProducts('Women',this)">Women</button>
+    <button class="category" onclick="filterProducts('Accessories',this)">Accessories</button>
+  </div>
+
+  <div class="products" id="productList"></div>
+</section>
+
+<section class="promo" id="about">
+  <h2>Style that speaks for you.</h2>
+  <p>Carmeldo Fashion. Where luxury meets everyday elegance.</p>
+  <a href="#shop" class="gold-button">SHOP THE COLLECTION</a>
+</section>
+
+<section class="section" id="cart">
+  <h2 class="section-title">Your Shopping Bag</h2>
+  <p class="section-subtitle">Review your selected items.</p>
+  <div id="cartItems"></div>
+  <div class="cart-total">
+    Total: N$<span id="cartTotal">0.00</span>
+  </div>
+  <button class="checkout-button" onclick="openCheckout()">
+    PROCEED TO CHECKOUT
+  </button>
+</section>
+
+<footer>
+  <h2>CARMELDO FASHION</h2>
+  <p>Luxury. Confidence. Individuality.</p>
+  <p>© 2026 Carmeldo Fashion. All rights reserved.</p>
+  <p>Namibia | Prices in Namibian Dollars</p>
+</footer>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-content">
+    <button class="close" onclick="closeCheckout()">×</button>
+    <h2>Complete Your Order</h2>
+
+    <form id="checkoutForm">
+      <label>Full name</label>
+      <input id="customerName" required placeholder="Your full name">
+
+      <label>Email address</label>
+      <input id="customerEmail" type="email" required placeholder="Your email">
+
+      <label>Phone number</label>
+      <input id="customerPhone" type="tel" required placeholder="Your phone number">
+
+      <label>Delivery address</label>
+      <textarea id="customerAddress" required placeholder="Your delivery address"></textarea>
+
+      <label>Payment preference</label>
+      <select id="paymentMethod" required>
+        <option value="">Select payment method</option>
+        <option value="Online payment">Online payment</option>
+      </select>
+
+      <div class="notice">
+        Your order will be prepared for confirmation.
+        Online payment must be connected to a secure payment
+        provider before real payments can be accepted.
+      </div>
+
+      <h3>Order total: N$<span id="checkoutTotal">0.00</span></h3>
+      <button class="checkout-button" type="submit">
+        PLACE ORDER
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+// PRODUCT DATABASE
+const products = [
+  {
+    id: 1, name: "Classic Premium Shirt",
+    category: "Men", price: 450,
+    image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600"
+  },
+  {
+    id: 2, name: "Luxury Casual Jacket",
+    category: "Men", price: 950,
+    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600"
+  },
+  {
+    id: 3, name: "Elegant Women's Dress",
+    category: "Women", price: 780,
+    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600"
+  },
+  {
+    id: 4, name: "Premium Women's Outfit",
+    category: "Women", price: 650,
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600"
+  },
+  {
+    id: 5, name: "Designer Sneakers",
+    category: "Men", price: 850,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+  },
+  {
+    id: 6, name: "Classic Handbag",
+    category: "Accessories", price: 590,
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600"
+  },
+  {
+    id: 7, name: "Luxury Sunglasses",
+    category: "Accessories", price: 350,
+    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"
+  },
+  {
+    id: 8, name: "Women's Fashion Shoes",
+    category: "Women", price: 720,
+    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600"
+  }
+];
+
+// SHOPPING CART
+let cart = JSON.parse(localStorage.getItem("carmeldoCart") || "[]");
+
+function saveCart() {
+  localStorage.setItem("carmeldoCart", JSON.stringify(cart));
+}
+
+function renderProducts(category = "All") {
+  const container = document.getElementById("productList");
+  container.innerHTML = "";
+
+  const filtered = products.filter(p =>
+    category === "All" || p.category === category
+  );
+
+  filtered.forEach(p => {
+    container.innerHTML += `
+      <div class="product">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="product-info">
+          <small>${p.category.toUpperCase()}</small>
+          <h3>${p.name}</h3>
+          <div class="price">N$${p.price.toFixed(2)}</div>
+          <button class="add-button" onclick="addToCart(${p.id})">
+            ADD TO BAG
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filterProducts(category, button) {
+  document.querySelectorAll(".category").forEach(b =>
+    b.classList.remove("active")
+  );
+  button.classList.add("active");
+  renderProducts(category);
+}
+
+function addToCart(id) {
+  const item = cart.find(p => p.id === id);
+
+  if (item) {
+    item.quantity++;
+  } else {
+    const product = products.find(p => p.id === id);
+    cart.push({...product, quantity: 1});
+  }
+
+  saveCart();
+  updateCart();
+}
+
+function changeQuantity(id, amount) {
+  const item = cart.find(p => p.id === id);
+  if (!item) return;
+
+  item.quantity += amount;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(p => p.id !== id);
+  }
+
+  saveCart();
+  updateCart();
+}
+
+function updateCart() {
+  const container = document.getElementById("cartItems");
+  const count = cart.reduce((sum,p) => sum + p.quantity, 0);
+  const total = cart.reduce((sum,p) => sum + p.price * p.quantity, 0);
+
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartTotal").textContent = total.toFixed(2);
+  document.getElementById("checkoutTotal").textContent = total.toFixed(2);
+
+  if (cart.length === 0) {
+    container.innerHTML = '<p class="empty">Your shopping bag is empty.</p>';
+  } else {
+    container.innerHTML = cart.map(p => `
+      <div class="cart-row">
+        <div>
+          <strong>${p.name}</strong><br>
+          <small>N$${p.price.toFixed(2)} each</small>
+        </div>
+        <div>
+          <button onclick="changeQuantity(${p.id},-1)">−</button>
+          <input aria-label="Quantity" type="number" min="1"
+            value="${p.quantity}"
+            onchange="setQuantity(${p.id},this.value)">
+          <button onclick="changeQuantity(${p.id},1)">+</button>
+        </div>
+        <button class="remove" onclick="removeItem(${p.id})">
+          Remove
+        </button>
+      </div>
+    `).join("");
+  }
+}
+
+function setQuantity(id, value) {
+  const item = cart.find(p => p.id === id);
+  if (!item) return;
+
+  const quantity = Math.floor(Number(value));
+  if (!Number.isFinite(quantity) || quantity < 1) {
+    item.quantity = 1;
+  } else {
+    item.quantity = Math.min(quantity, 99);
+  }
+  saveCart();
+  updateCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(p => p.id !== id);
+  saveCart();
+  updateCart();
+}
+
+function goCart() {
+  document.getElementById("cart").scrollIntoView();
+}
+
+function openCheckout() {
+  if (cart.length === 0) {
+    alert("Please add products to your bag first.");
+    return;
+  }
+
+  document.getElementById("checkoutModal").style.display = "block";
+}
+
+function closeCheckout() {
+  document.getElementById("checkoutModal").style.display = "none";
+}
+
+// DEMO ORDER SUBMISSION
+document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  if (cart.length === 0) return;
+
+  const order = {
+    orderNumber: "CF-" + Date.now(),
+    customer: document.getElementById("customerName").value,
+    email: document.getElementById("customerEmail").value,
+    phone: document.getElementById("customerPhone").value,
+    address: document.getElementById("customerAddress").value,
+    payment: document.getElementById("paymentMethod").value,
+    items: cart,
+    total: cart.reduce((sum,p) => sum + p.price * p.quantity, 0),
+    date: new Date().toISOString()
+  };
+
+  // Demo only: this does not charge the customer
+  console.log("Demo order:", order);
+
+  alert(
+    "Thank you, " + order.customer +
+    "! Your demo order " + order.orderNumber +
+    " has been created. No payment has been taken."
+  );
+
+  cart = [];
+  saveCart();
+  updateCart();
+  closeCheckout();
+  this.reset();
+});
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
+
+ord/theme/theme1.xml�ZO��6�/��A�ݱ$����4�I3�,z�%ZbL�Iό�(�HO{)P���z�(�@���~� 	v�bIJ�H�j�fZ��c����{|���Y��w�R�\@�Ɇ��s��$BY<t��}�ad�$�Cw����?�����BG�3v݄��v��B1
+�-��L�[�.�4nF\
+�)n��m� e���T�}�\�:�R�{w+|�ſ�39bz&EC����ʗol�&�: ]�'"�������C�S�Ӽ{��ca^Cֈs��%��h("�;�7�m�Ҡ�g}��$*C����w�^?؂5Tqi�>���=���u�a�m��P�e�p���l�1	
+U\v#/Z&A�����=���IP��lu�������,	�g��]�7��+XS˴B@���.O	���2�(s�&�K
+�(�9S�r6����01��/����W�wp�^΅�pN�䰐����B��a^����g�=���?|����n#�Y�����~��?�~��'�!0���뿾��~R7,��7/���ŧ���Ol��RȜ���9%�\�E\�7��' �Q3�I��g<1�7 pMw>���X�ﮟF�%t͑
+� I
+�1!xL�}a�:��,��O�:�����^�g�\�d:I�a�	�1� w�=����{!ÿ�(���%w�G� �c���H��u�"@��"􆇎�8c��
+�����U(Ć7�kR�� �:���j�ن���A�!&�,��YI��\uEz DA�g�1ޤ&�r��B� !:tJV����n�%:�=����vs�ȱ��#�A#���eOygM�{s�n�@��M�<�Ȟ)�ul���\�B��{V�
+�W��OD�����ԕ�2�[�f�bČ>�1�3�x�W�6 K���pe��lA���/WF�ET��;1)�u�$��19f5黡F$_k�	�ӟC�oN���=t���J�s��#k1#*��`�����F����k�R���g�U{%ю���s�����[uF�%f���wAB#��h��`��@y�X�7=�M���?z��]~���t>Z9��|~�Χjv�C���$%&�}��D��
+�GL�IL�h.&�@�vϱ�D\n���u�P���xr��\�񕊘��c�䄉^KM[��x���|X(���1�` ^��:�
+���b��Ӟ��4�Q��nm��7�CWg�Ѳ���;����1d`3�/���������Q|�]>�f���H����Ǽ֥�����k��a��{�zR&�p9�����&J�X,�����ʲW0pf��KiVO
+
+A>t�⃗�Ls!��p�
+ݐ��Y�&��OK
+��U:!ER�T���i�
+�.�
+��X��Soz��r	C^3S
+ŽR���ۢ倬��gIt�,��NϗQ�㻐G�j�^�r���[���ڲ �	(���xu��G[�2uY�\�"��z�s��,yC+�u��<Vk
+�/�hvi'�aWQ���`W�jO��?+4�4u�y�l�yڴi�u�
+��*MkϏk?(�sX��>T��v'��bLE{�����H������6�k̊]S.l[pv
+���D%����V��l��y��V��1K�{x�.���;��-�[��6	���]���JI�0Y��)>=R0�~�\VY5���W�YS4t��uF�IЙ4�~g�h��^����N���:�7y���"�s�"�)���~��n?��
+I�$�CHS���4���g�/¬`淃Q0iL�~����F��5&Aw�D���G�΅���t>���D��ި��[�F�?s֞z\��,ͥ3��y�   �� PK     ! ���$#  O     word/settings.xml�Wm��8�~����ǒ�@iT�Z�n�Z�U�����X�%�Xz��~c'&�����~!�<3όg�����g�=Q�J1��0��KL�f��^tGAG$0bR�qp$:x��/��&ƀ�� ��)���֘2��t�%�Y`!G^զǑ�Ue7��D�f�Qs��a89*%҆��i�����&�,
+����-�%~k���+N�q{�0�A
+����l�G� �z���6����������'�K³��9�
+ę���q����|7[tT`�nu��:���0'O�q��X��P|���C��F�� WWQ�}�}X�3.�
+�^G�kԳ�Ƞ-ҧ��vcr�X7��\���������a���5�H3�T=3���y��R��A8���Ύ���B���-ɓ���6�����Fڞ�C:�,�����%Q9��q� Θ,V��0��f����F!�$qF�쩝�վ���	!M=��AبaR���5�VF�>�7���-R(7D�J��۩FI���C�)LYC����kW�&��#:�ʜC�z��@R�Ք^JL�*E/��5p�D>g/{�p)����pe��,`?+���	��҆�K�O������?Bۭ�%Yd*H�kys�Y0Z.�RR=��z�hQ(����*yp��'���Z����m8��5t�n"����Xn!�?W���λ>b����R��nM��ܷ��/�Fa<J�QC�S{�R~e��k�)♢��t�=���݄
+���h�+hUe�vDs��2�z�<�T�3R�/l�Ԧ��:�e1�'>;Ȉ�]ɪl��Be݆^'JoK�y����V';�����Wu��LRuug���p�Dt���
+����,QY�=�m�q��fk"[vo>�K��,vX\c��v{��,ZY�egz}/뷲�˒V6�A+z��ʶ08\;hg���B2&߷�3�i��j�:��5 �NX	s�H�
+%)�������q���"�øc��L�	�{�j����l����b>��I�}N��$���?��������n�  �� PK     ! P>(&  ��     word/styles.xml�[s۸��;����S��ز�K<�ݱ���4�z#�;�7��,�)B%�8�O_\
+�!(�Xq�Nfb�"~ �?�8��_�Γ���X��{��{OC���������{A^�4b�H���#��~������,/���g��|oV����<��9�_�O�S��Y!�fw�s��//B1_�"��I\<��
+EL�q�_�p9�i���g<�D��x�[�CڃȢE&B������Y�V����q��\L���`�i�,>8П��
+p��qȿ��%c_�t9q��W�8r8�� �%
+q8��PTq��GE4��F��,+،�u�4�G�X"�{��q�vT�J�yx��.�$�$�2��h��_�����ޮ���0M��k?K׍D��O�2)r�5��ʯ�7��Z�E<��<��[�^Y�<����H�xO��Y^\�1s|SnS��Ԏ�%üp6_Ƒܺ�j��Y*��d����?�-�jӕj��Ƅ�wv#O_���m���y�6Mdu�{,{1�0%��$�c�2��L}����J��Z,Y���/{��u�m��M7t��X7�M.����@�!�U4=<9�_>-��lY[�&��wh'Þ�c��|�^Z�ƅ��|OW&7~~w��"���|�իr���q���1���}���9�V���&]n�2���'�ڞ�<z�5���)S�~T��2^U�����V�:��3u
+��~�Pɝ㭇.7�^i���F;��hg5ﬦ��դ}|'5iΓ���<������%��:<��Tx��g� �K�A�ǃ<�y�*D�3G��>�oo?kto?Ito?'to?to����|G��x��=|w �aX�N:\Z����E*
+�1qK%L�܉��T�3����@W����B��o7��=N�ebL�;5/��t�~�X��E�R3.�n�N�d���!'�pB��2�r>�������4��B����e���L�KLa�sf��q����qN�_�\.��S�>���L!4�`�9�!�?8ʑuS���G�i%����]���G�w%���n�"�a�����D��1�[2��R���*���
+��]��@%���a�+��cpKr��Pd�m)*#�K�N]Ñ�Y��
+H�k���>ȱ���%������ց5���Y�4�^�c���\�:�r:���R��G5�U��D�U;	���x�f��m`ɤh���K��>.x&�p��Q�"I����"��\�?Ժ���7�Ō属W�1� {�G��-��M��H�7/�,N������[�P�R�9D�KQbN-s���O�N��9mN���*��iW1řǠDD���8�iέ�O�8,��p77���
+9f��P���2Q��4�_,�UN�̿nihN�1_N��!A��(��ү�B�0�pX'�� �x���<e(C�8�5���Ȏ�*ay{��v���2�T��Dd�eB؉�H׋�H׍"Y�Ӝ��5��5���)-G)Rz��,���4294�LM#B�hU �+ȡ����24���C#�7ځե#�Ffo�Ffo�Ffo�Ffo���N�@���0�l�a�}҂�"c�#�M��E���n21U����WN�T��rDnxdR��'t�S0ҖQ�UY�A��[��tэ[綕�Ϫ�o�M�B>I�3�a����<4�y�!�r���Y�g�����@�V�N��ʵ�����<��>�(^�m[���CDim�k�G-J��kE�����(�L�=i[�zڶ�v۵����e��q�hIդ�c�'��T����Ѥ��u�x�hOk�\��� Ej�A~@KW�P>�Ǡ�ˏi�e~F��}�_bu�G�R]cu�8!��v�x��R�Kk�ϡ����4�A-h��*�w���> ��#���>$��b��<.H�1�����>l�����������t�_}F	~F�႟�w[���m�����s[P���B�m!﶐�w[8JC�- �:�-�tr[���-d��2�nx����v�	x�ws[���-d��2�n���}��n��b:�-���2�nx����B�m!綠|7����B�m!���nH���Nn1��b�nx����B�m!﶐�s[P���B�m!﶐�w[}]���B �m!���BL'����B�m!﶐�w[���-d������w[���-d4ZjyE��H��C��x�Ζ�|D�4�����"X�]~����]
+q�>B9�ӓ��x��B'�=��]��w��׫懓\|߷N�o�k��>j]$eF����Q�ͻE��t��ݢ�9j��I�}1�4J7����S�1�;�aG7n�$���p프�����G��؛ŏ�v�qu�+@4Z��8�#-Jfc4������E�#Z��G�d�r:��g���:*}�x��#ЊCD7�����]q��8��h�!�x���GtSpz(Y������sZq�@+h�������CVw�!���p�V"ЊCZq��8��P��+Y�k���V"ЊCD7�����]q�jT\ga��	�G�Ӝ�ȓ�S���]�WN��+�uz%��#�W�v~Dk���j�8Y����Yx�����#�Wu��p[?�8rz�U9�jT9�jT9��+��^�)��^�)�#b��GN�GN�GN���#�Wu�#�Wu�#�Wu��=Y{9=GN�GN���#�Wu�#�Wu�#�Wu�#�W^őӫFőӫFő�+����U����U����U����Wq���Qq���Qq���,S�k<gY�M�-�g�\%ŀ>��E�G�Ѿ����ڲc
+���
+�o���3W�yqnI�;�����TaՔ�\�ͮ��\^.��E�TV��k�P�����c����z֟�7H���,��`k�����ye�v'��=�ey�W��7��n�|�=狏�z��&����Z[n�޸&�bh�+��;��,̻��I�ڬ�e=�k��?��S?z��[+�Z�Om�\��*ϯZv=:Qw`Iu��:*��1V�՝1�ty]"VKV׸�%ˍ��}]l��kK62Q��a+[Zyk�皳�������[7~8{Sw� {+7�������'T�6������m����Ρ��-gj6�����v��GT�3�NlGYKe:�Y���'0���sU6��)�4�#��؎�2���D�=����$�j�u&a'�T&q�������$�a*�u�8z��mZ�Z%ke��Z������<N��a T�q�c�G��O0vm�^s��*s8}��� ��:>��m�5ɠ�� �DT��{7����4"<����YX�<ߓ�+�ʪ޼���4
+�zZMm�n����*���n��n�K�l���0�WL#���.Uv��-ƶ6��J���'�fv��}>U^$���01k��	��\�G�7�|m6��hl���倚~�ϯQtyK���젱�a��k��͖�?��	N��3�Q�ڼ?�5���t;ikR�>mɴ�i��g��	���S�Z���O�!��6]�$Z�d��[�T&R7�r��6"�ͦJ��n� ������|���c���+r=L�ͧ�1�6I����L��T�O�2ql��;˷�$�|b���aϖߑ�<u.a�8&����8V�g�);����l�y�v���Ƨ�4�Ѯ&�c'��d�Ǚ|*'����՗OKeslY���S՗K��K1�]��^Y�>�U���R���MG����ˍt����f���kz
+��\'��F�z߮zߔj�<��[^���9y���qRs�Y��S'��#`	{X��S��㳄�~�aS
+�?�a�ӋW�f�M��%%h\U��T�z��O=w��]�mY5/V&kzi�g���������U��J��w\���8���z3V�sV��l��~(�Y�e�]�Q+�t1�X_�SW��{�q6[ZOu���n=|�!�nj�{bmc,��9���跱��Vki���Z����-.#��\��;�Ҳ�U��Է�����vJ��]��Eߧ�J�Eyl�O�ߌ�9~w��W�`.B���>��o��6�h��Ok^��~�e8h��w��:�yk� :��%�AtRVm{-�'�b�NCQS?�[�)���   �� PK     ! 	�Eo  /     word/webSettings.xml���n�  ��%{��{�:5Kc5Y��,K�= ©%�\uO?���xcwS����7_�J��:�&'�aJ0�4��|}��$q����Y.���uV����$(�e�����(u���+0a�@��]������p��r-��:N�i{��E!9<#�i0�ɧTѸRV�շh5ZQY��\X�VGO3i��hri�-:,�0,����B�(m"���i?`|�8����ACfב��3;;Rt���Į1~8���ޱ���ǝΈ�\�Y�\y)��8����o�&�۴�<�x��g����U�­L��J8~��Ħ	aߌ�mi�B� ��"�_����Vh�,�lB�8S
+����أ�|�  �� PK     ! gj9�#  �     word/fontTable.xml��ێ�0��+�,�7r�l�ɪ��H��E�>�cL���1!�}m�d�ҪK�)�0�f~�O')Б�Z��l���W�u�s��[&,QZ�u�1H�6�?=��R+��+XI�N*k�U���$0�5S.Yj#�u��Jbޚ��jY��\pۥ9Ƌ$b�G(�,9e/�6�)�SÄ#j��Lk?Bk�)j�)p3K��$���f7 ɩѠK;q�Ďʕg8DR��� �
+`A�ic��rx1���px1��[3@ьB��s���,(lQ�Ý�(��Ē�@uM,�8�l@�Lh�6d�q��/�N�3�t����!{�Hn+�[,��ߝ�������m�A)|�\��/�+E�}��� �Di`���ޙ�1�aoW���7iE0����Q/��;��r������9q$��)b��e��u�>���}�+����4*�E�Q�^+4p�c����;�o5�M�1c�%���臖D���/�ϝ5sOG�by�-�ޕ�m���S���[�nK�aK��¡��/�24Ei�3
+�u5��K+I#�u�1��/   �� PK     ! �uv     docProps/core.xml �(�                                                                                                                                                                                                                                                                 ���O�0��M���o�F$dè�I1�J{@������C"������w���d/E��Vc�%)�@Q͸Z���|�P�<Q��`��Ф��)�)���b��9�(()WP3Fk�M���k��%�P���VR��
+Y��t�%x'��M�������fkE+�(�w8K2|f=X�6�����`�*z*������:�-��������j�U�T���{U��a��v��w�}bj�xm+�%QzaA1bx/��e�p��7p��e.H]dc��ƇG�]Z�gᕗ��Ꮩ�٦�7?��[�Oˣ�ݞ��`[љ|����ST�i>��,���yV��"M?�U/�ς���O�[�_��  �� PK     ! voExz  �   docProps/app.xml �(�                                                                                                                                                                                                                                                                 �R�N�0�#�Q��IU*Zm]�V�/�Ζ�I,۲
+�Ϛ@�FN�����İ}�u��>(k6y9+����2�&���.�,Daj���M~Đo��	<x��G�!#
+6y�[3d��3�4��"R�[f�FI�[�ڣ�l^K��M���	�q��KZ[���舏C���""�K��@e�Еꑗ�
+<�C������9���]'������|�:6A��9����,�U��`������� ��^�#/�M[�Q&�)����y�z�:ҴJ"�Rhܑ�� ;�;a�����GW�}��k�78q��bwpB&9������dB�&���k�+^�h״X��;H)>
+ϓ��YA�gl�9�
+�   �� PK-      ! 4a�\  *                   [Content_Types].xmlPK-      ! *�{�   Q               �  _rels/.relsPK-      ! ���?|2  ��              �  word/document.xmlPK-      ! �ܺ��   6               a9  word/_rels/document.xml.relsPK-      ! ��:  �"               �;  word/theme/theme1.xmlPK-      ! ���$#  O               C  word/settings.xmlPK-      ! P>(&  ��               WG  word/styles.xmlPK-      ! 	�Eo  /               �W  word/webSettings.xmlPK-      ! gj9�#  �               KY  word/fontTable.xmlPK-      ! �uv                 �[  docProps/core.xmlPK-      ! voExz  �               K^  docProps/app.xmlPK      �  �`    
